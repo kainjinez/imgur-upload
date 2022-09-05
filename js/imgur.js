@@ -28,7 +28,6 @@
         this.callback = options.callback || undefined;
         this.dropzone = document.querySelectorAll('.dropzone');
         this.info = document.querySelectorAll('.info');
-
         this.run();
     };
 
@@ -50,7 +49,6 @@
         },
         post: function (path, data, callback) {
             var xhttp = new XMLHttpRequest();
-
             xhttp.open('POST', path, true);
             xhttp.setRequestHeader('Authorization', 'Client-ID ' + this.clientid);
             xhttp.onreadystatechange = function () {
@@ -72,16 +70,18 @@
             xhttp = null;
         },
         createDragZone: function () {
-            var p1, p2, input;
-
-                p1 = this.createEls('p', {}, 'Drag your files here');
-                p2 = this.createEls('p', {}, 'or click in this area.');
-            input = this.createEls('input', {type: 'file', multiple: 'multiple', className: 'input', accept: 'image/*'});
+            var p1, p2, p3, input;
+            p1 = this.createEls('i', {className: 'far fa-images'});
+            p2 = this.createEls('p', {}, 'Drag and Drop your files here');
+            p3 = this.createEls('p', {}, 'or Browse in this area.');
+            input = this.createEls('input', { type: 'file', accept: '.jpg,.gif,.png,.webp', multiple: 'multiple', className: 'input' });
 
             Array.prototype.forEach.call(this.info, function (zone) {
                 zone.appendChild(p1);
                 zone.appendChild(p2);
+                zone.appendChild(p3);
             }.bind(this));
+
             Array.prototype.forEach.call(this.dropzone, function (zone) {
                 zone.appendChild(input);
                 this.status(zone);
@@ -90,23 +90,20 @@
         },
         loading: function () {
             var div, table, img;
-
-            div = this.createEls('div', {className: 'loading-modal'});
-            table = this.createEls('table', {className: 'loading-table'});
-            img = this.createEls('img', {className: 'loading-image', src: './css/loading-spin.svg'});
+            div = this.createEls('div', { className: 'loading-modal' });
+            table = this.createEls('table', { className: 'loading-table' });
+            img = this.createEls('img', { className: 'loading-image', src: './css/loading-spin.svg' });
 
             div.appendChild(table);
             table.appendChild(img);
             document.body.appendChild(div);
         },
         status: function (el) {
-            var div = this.createEls('div', {className: 'status'});
-
+            var div = this.createEls('div', { className: 'status' });
             this.insertAfter(el, div);
         },
         matchFiles: function (file, zone) {
             var status = zone.nextSibling;
-
             if (file.type.match(/image/) && file.type !== 'image/svg+xml') {
                 document.body.classList.add('loading');
                 status.classList.remove('bg-success', 'bg-danger');
@@ -114,7 +111,6 @@
 
                 var fd = new FormData();
                 fd.append('image', file);
-
                 this.post(this.endpoint, fd, function (data) {
                     document.body.classList.remove('loading');
                     typeof this.callback === 'function' && this.callback.call(this, data);
@@ -126,20 +122,16 @@
             }
         },
         upload: function (zone) {
-            var events = ['dragenter', 'dragleave', 'dragover', 'drop'],
-                file, target, i, len;
-
+            var events = ['dragenter', 'dragleave', 'dragover', 'drop'], file, target, i, len;
             zone.addEventListener('change', function (e) {
                 if (e.target && e.target.nodeName === 'INPUT' && e.target.type === 'file') {
                     target = e.target.files;
-
                     for (i = 0, len = target.length; i < len; i += 1) {
                         file = target[i];
                         this.matchFiles(file, zone);
                     }
                 }
             }.bind(this), false);
-
             events.map(function (event) {
                 zone.addEventListener(event, function (e) {
                     if (e.target && e.target.nodeName === 'INPUT' && e.target.type === 'file') {
@@ -154,13 +146,11 @@
         },
         run: function () {
             var loadingModal = document.querySelector('.loading-modal');
-
             if (!loadingModal) {
                 this.loading();
             }
             this.createDragZone();
         }
     };
-
     return Imgur;
 }));

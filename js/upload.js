@@ -12,17 +12,42 @@ function addImg(ele, content) {
         myDIV.appendChild(newContent.firstChild);
     }
 }
-var feedback = function(res) {
+var feedback = function (res) {
     reportInfo(res, true);
     if (res.success === true) {
         var get_link = res.data.link.replace(/^http:\/\//i, 'https://');
-        document.querySelector('.status').classList.add('bg-success', 'center');
-        var content = `<div style="width: 70%;">
-                       <p>Link: <input class="image" value="${get_link}" onclick="this.select();"/></p>
-                       <p>Bbcode: <input class="image" value="\[img\]${get_link}\[\/img\]" onclick="this.select();"/></p>
-                       <p>Markdown: <input class="image" value="![](${get_link})" onclick="this.select();"/></p>
-                       <hr><p><img class="img" alt="Imgur-Upload" src="${get_link}"/></p>
-                       </div>`;
+        document.querySelector('.status').classList.add('bg-image', 'center', 'mt-2', 'py-2');
+        var content = `<div style="width: 95%;">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#url" role="tab" aria-controls="url" aria-selected="true">LINK</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#html" role="tab" aria-controls="html" aria-selected="false">HTML</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#bbcode" role="tab" aria-controls="bbcode" aria-selected="false">BBCODE</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#md" role="tab" aria-controls="md" aria-selected="false">MARKDOW</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="url" role="tabpanel" aria-labelledby="url-tab">
+                <div class="my-2"><input class="form-control" value="${get_link}" onclick="this.select();"/></div>
+            </div>
+            <div class="tab-pane fade" id="html" role="tabpanel" aria-labelledby="html-tab">
+                <div class="my-2"><input class="form-control" value="\<img\ src='${get_link}'/>" onclick="this.select();"/></div>
+            </div>
+            <div class="tab-pane fade" id="bbcode" role="tabpanel" aria-labelledby="bbcode-tab">
+                <div class="my-2"><input class="form-control" value="\[img\]${get_link}\[\/img\]" onclick="this.select();"/></div>
+            </div>
+            <div class="tab-pane fade" id="md" role="tabpanel" aria-labelledby="md-tab">
+                <div class="my-2"><input class="form-control" value="![](${get_link})" onclick="this.select();"/></div>
+            </div>
+        </div>
+        <hr><p><img class="rounded mx-auto d-block" src="${get_link}" alt="Image"/></p>
+        </div>`;
         addImg('.status', content);
     }
 };
