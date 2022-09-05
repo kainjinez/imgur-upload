@@ -165,7 +165,7 @@ p {
     .status {
         width: 80%;
         position: fixed;
-        top: 60%;
+        top: 71%;
         left: 50%;
         transform: translate(-50%, -50%);
     }
