@@ -46,7 +46,7 @@ var feedback = function (res) {
                 <div class="my-2"><input class="form-control" value="![](${get_link})" onclick="this.select();"/></div>
             </div>
         </div>
-        <hr><p><img class="rounded mx-auto d-block" src="${get_link}" alt="Image"/></p>
+        <hr><p><img class="img rounded mx-auto d-block" src="${get_link}" alt="Image"/></p>
         </div>`;
         addImg('.status', content);
     }
