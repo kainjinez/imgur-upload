@@ -20,7 +20,7 @@ var feedback = function (res) {
         var content = `<div style="width: 95%;">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#url" role="tab" aria-controls="url" aria-selected="true">LINK</a>
+                <a class="nav-link active" data-toggle="tab" href="#url" role="tab" aria-controls="url" aria-selected="true">URL</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#html" role="tab" aria-controls="html" aria-selected="false">HTML</a>
