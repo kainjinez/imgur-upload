@@ -2,7 +2,7 @@
 Upload images to Imgur via Javascript, no need Php.
 
 ## Demo
-Click [here](https://upanh.ml) to view now
+Click [here](https://duyplus.github.io/upload) to view now
 
 ## Getting Started
 ```bash
